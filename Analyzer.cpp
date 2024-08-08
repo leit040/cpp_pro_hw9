@@ -1,9 +1,10 @@
 #include "Analyzer.h"
 #include <QDebug>
-#include "Config.hpp"
 
-Analyzer::Analyzer(QObject *parent)
-    : QObject{parent}{
+
+Analyzer::Analyzer(QObject *parent, Config* _config)
+    : QObject{parent}, config(_config){
+
 }
 
 void Analyzer::reportPrint() const{
@@ -24,7 +25,7 @@ void Analyzer::reportPrint(QString name) const{
     }
 
 void Analyzer::registerSensor(QString name){
-    sensorData.insert(name,SensorData(MAX_ELEMENTS,name));
+    sensorData.insert(name,SensorData(config->getMaxElements(),name));
 }
 
 void Analyzer::analyzeData(const SensorMetric& aSensorMetric){
